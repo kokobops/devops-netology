@@ -6,3 +6,5 @@ first line
 4. игнорируем все файлы с раширением .tfvars
 5. игнорируем файлы verride.tf, override.tf.json, файлы по шаблону "*_override.tf" и файлы по шаблону "*_override.tf.json"
 6. игнорируем .terraformrc и terraform.rc
+
+new line
