@@ -1,0 +1,19 @@
+Index: branching/merge.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/branching/merge.sh b/branching/merge.sh
+--- a/branching/merge.sh	(revision e1f7b52c145c831762301e05af3409beb8527966)
++++ b/branching/merge.sh	(date 1633038927442)
+@@ -1,0 +1,9 @@
++#!/bin/bash
++# display command line options
++
++count=1
++while [[ -n "$1" ]]; do
++    echo "Parameter #$count = $1"
++    count=$(( $count + 1 ))
++    shift
++done
+\ No newline at end of file
