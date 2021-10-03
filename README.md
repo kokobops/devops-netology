@@ -1,5 +1,5 @@
 # devops-netology
-first line
+
 1. Полный хэш aefead2207ef7e2aa5dc81a34aedf0cad4c32545, коментарий Update CHANGELOG.md, команда git show aefea
 2. tag: v0.12.23, команда git show 85024d3
 3. Хэши рродителей 56cd7859e 9ea88f22f, команда git log --pretty=format:"%h %p" --graph b8d720
