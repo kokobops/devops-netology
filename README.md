@@ -8,29 +8,31 @@
 vi      1200 vagrant    4u   REG  253,0     4096 141087 /home/vagrant/.1.txt.swp (deleted)
 
 для очистки cp /dev/null /proc/1200/fd/4
+
 Чищу так логи на рабочих серверах
 
 4. Зомби не занимают памяти (как процессы-сироты), но блокируют записи в таблице процессов, размер которой ограничен для каждого пользователя и системы в целом.
 5.
-PID    COMM               FD ERR PATH
-1      systemd            12   0 /proc/401/cgroup
-393    systemd-udevd      14   0 /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.procs
-393    systemd-udevd      14   0 /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.threads
-787    vminfo              4   0 /var/run/utmp
-591    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services
-591    dbus-daemon        18   0 /usr/share/dbus-1/system-services
-591    dbus-daemon        -1   2 /lib/dbus-1/system-services
-591    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/
-605    irqbalance          6   0 /proc/interrupts
-605    irqbalance          6   0 /proc/stat
-605    irqbalance          6   0 /proc/irq/20/smp_affinity
-605    irqbalance          6   0 /proc/irq/0/smp_affinity
-605    irqbalance          6   0 /proc/irq/1/smp_affinity
-605    irqbalance          6   0 /proc/irq/8/smp_affinity
-605    irqbalance          6   0 /proc/irq/12/smp_affinity
-605    irqbalance          6   0 /proc/irq/14/smp_affinity
-605    irqbalance          6   0 /proc/irq/15/smp_affinity
-787    vminfo              4   0 /var/run/utmp
+
+--PID    COMM               FD ERR PATH
+--1      systemd            12   0 /proc/401/cgroup
+--393    systemd-udevd      14   0 /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.procs
+--393    systemd-udevd      14   0 /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.threads
+--787    vminfo              4   0 /var/run/utmp
+--591    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services
+--591    dbus-daemon        18   0 /usr/share/dbus-1/system-services
+--591    dbus-daemon        -1   2 /lib/dbus-1/system-services
+--591    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/
+--605    irqbalance          6   0 /proc/interrupts
+--605    irqbalance          6   0 /proc/stat
+--605    irqbalance          6   0 /proc/irq/20/smp_affinity
+--605    irqbalance          6   0 /proc/irq/0/smp_affinity
+--605    irqbalance          6   0 /proc/irq/1/smp_affinity
+--605    irqbalance          6   0 /proc/irq/8/smp_affinity
+--605    irqbalance          6   0 /proc/irq/12/smp_affinity
+--605    irqbalance          6   0 /proc/irq/14/smp_affinity
+--605    irqbalance          6   0 /proc/irq/15/smp_affinity
+--787    vminfo              4   0 /var/run/utmp
 
 6.  Part of the utsname information is also accessible  via  /proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}.
 
