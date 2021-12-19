@@ -69,12 +69,29 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import sys
+
+if len(sys.argv) > 1:
+    pwd = sys.argv[1]
+else:
+    pwd = os.path.dirname(sys.argv[0])
+
+bash_command = [f"cd {pwd}", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+
+for result in result_os.split('\n'):
+    if result.find('изменено') != -1:
+        prepare_result = result.replace('\tизменено:   ', '')
+        print(os.path.join(pwd, prepare_result))
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+/home/bobs/devops-netology/   README.md
+/home/bobs/devops-netology/   has_been_moved.txt
 ```
 
 ## Обязательная задача 4
