@@ -99,12 +99,37 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import socket
+import time
+
+hosts = {'drive.google.com': '0.0.0.0', 'mail.google.com': '0.0.0.0', 'google.com': '0.0.0.0'}
+a = 10
+for i, y in hosts.items():
+    hosts[i] = socket.gethostbyname(i)
+
+while 1==1:
+    for i, y in hosts.items():
+        if y != socket.gethostbyname(i):
+            print(f'[ERROR] {i} IP mismatch: {y} - {socket.gethostbyname(i)}')
+            hosts[i] = socket.gethostbyname(i)
+        else:
+            print(f'{i} {y} - {socket.gethostbyname(y)}')
+    time.sleep(a)
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+drive.google.com 64.233.165.194 - 64.233.165.194
+mail.google.com 64.233.164.17 - 64.233.164.17
+google.com 74.125.131.100 - 74.125.131.100
+drive.google.com 64.233.165.194 - 64.233.165.194
+mail.google.com 64.233.164.17 - 64.233.164.17
+[ERROR] google.com IP mismatch: 74.125.131.100 - 142.251.1.102
+drive.google.com 64.233.165.194 - 64.233.165.194
+mail.google.com 64.233.164.17 - 64.233.164.17
+google.com 142.251.1.102 - 142.251.1.102
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
