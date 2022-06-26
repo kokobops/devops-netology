@@ -9,44 +9,57 @@ provider "yandex" {
   zone      = "ru-central1-a"
 }
 
-resource "yandex_compute_image" "default" {
-  name   = "ubuntu"
-  source_image = "fd8kp2fgjvpphbbnn375"
+resource "yandex_vpc_network" "net" {
+  name = local.network_names[terraform.workspace]
 }
 
-resource "yandex_vpc_network" "default" {
-  name = "net"
-}
-
-resource "yandex_vpc_subnet" "default" {
-  name = "subnet"
+resource "yandex_vpc_subnet" "subnet" {
+  name           = local.subnet_names[terraform.workspace]
   zone           = "ru-central1-a"
-  network_id     = "${yandex_vpc_network.default.id}"
+  network_id     = resource.yandex_vpc_network.net.id
   v4_cidr_blocks = ["172.16.0.0/24"]
 }
 
-resource "yandex_compute_instance" "test-vm" {
-  name        = "test"
-  platform_id = "standard-v1"
-  zone        = "ru-central1-a"
+module "yc_instance_count" {
+  source = "./instances/"
+  instance_count = local.yc_instance_count[terraform.workspace]
+  cores         = local.yc_cores[terraform.workspace]
+  memory        = local.yc_memory[terraform.workspace]
+  subnet_id     = resource.yandex_vpc_subnet.subnet.id
+}
 
-  resources {
-    cores  = 2
-    memory = 4
+module "yc_instance_for_each" {
+  source        = "./instances/"
+  for_each      = local.for_each_map[terraform.workspace]
+  name          = "${each.key}-vm-foreach"
+  cores         = local.yc_cores[terraform.workspace]
+  memory        = local.yc_memory[terraform.workspace]
+  subnet_id     = resource.yandex_vpc_subnet.subnet.id
+}
+
+locals {
+  yc_instance_count = {
+    stage = 1
+    prod  = 2
   }
-
-  boot_disk {
-    initialize_params {
-      image_id = "${yandex_compute_image.default.id}"
-    }
+  yc_cores = {
+    stage = 2
+    prod  = 4
   }
-
-  network_interface {
-    subnet_id = "${yandex_vpc_subnet.default.id}"
-    nat = true
+  yc_memory = {
+    stage = 4
+    prod  = 8
   }
-
-  metadata = {
-    ssh-keys = "centos:${file("/home/centos/.ssh/id_rsa.pub")}"
+  for_each_map = {
+    stage = toset(["s1"])
+    prod  = toset(["p1", "p2"])
+  }
+  network_names = {
+    stage = "stage-net"
+    prod  = "prod-net"
+  }
+  subnet_names = {
+    stage = "stage-net-subnet"
+    prod  = "prod-net-subnet"
   }
 }
